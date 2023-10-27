@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+float validaSalario() {
+    float salario;
+    do {
+        printf("Digite o salário do assalariado (ou -1 para sair): R$");
+        scanf("%f", &salario);
+        if (salario < -1) {
+            printf("Salário inválido. Tente novamente.\n");
+        }
+    } while (salario < -1);
+    return salario;
+}
+
+void classificaSalario(float salario, char *classificacao) {
+    const float salarioMinimo = 1400.0;
+
+    if (salario > salarioMinimo) {
+        strcpy(classificacao, "Acima do salário mínimo");
+    } else if (salario == salarioMinimo) {
+        strcpy(classificacao, "Igual ao salário mínimo");
+    } else {
+        strcpy(classificacao, "Abaixo do salário mínimo");
+    }
+}
+
+void mostraClassificacao(float salario, char *sexo) {
+    char classificacao[30];
+    classificaSalario(salario, classificacao);
+
+    printf("Salário: R$%.2f - %s - Sexo: %s\n", salario, classificacao, sexo);
+}
+
+int main() {
+    int assalariado = 1;
+    char sexo;
+
+    while (1) {
+        float salario = validaSalario();
+
+        if (salario == -1) {
+            break;
+        }
+
+        printf("Digite o sexo do assalariado (M/F): ");
+        scanf(" %c", &sexo);
+
+        if (sexo == 'M' || sexo == 'F') {
+            mostraClassificacao(salario, (sexo == 'M') ? "Masculino" : "Feminino");
+        } else {
+            printf("Sexo inválido. Tente novamente.\n");
+        }
+
+        assalariado++;
+    }
+
+
+}
